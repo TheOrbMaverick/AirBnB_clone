@@ -26,8 +26,9 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program"""
         return True
 
-    #aliasing the command
+    # aliasing the command
     do_exit = do_quit
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
