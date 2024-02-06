@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
-    classes = ["BaseModel"]
+    classes = ["BaseModel", "User"]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -141,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
         obj = all_objs[obj_key]
         setattr(obj, args[2], args[3])
         obj.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
