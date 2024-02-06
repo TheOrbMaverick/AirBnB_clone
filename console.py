@@ -2,9 +2,10 @@
 
 """
 Console that runs commands for the airbnb project.
-Importing the cmd module
+Importing the cmd and other necessary modules
 """
 import cmd
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -28,6 +29,21 @@ class HBNBCommand(cmd.Cmd):
 
     # aliasing the command
     do_exit = do_quit
+
+    def do_create(self, arg):
+        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id"""
+
+        if not arg:
+            print("** class name missing **")
+            return
+        
+        if arg == "BaseModel":
+            new_instance = BaseModel()
+            new_instance.save()
+            print(new_instance.id)
+
+        else:
+            print("** class doesn't exist **")
 
 
 if __name__ == '__main__':
