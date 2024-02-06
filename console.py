@@ -41,7 +41,6 @@ class HBNBCommand(cmd.Cmd):
         """Emptyline method"""
         pass
 
-
     def do_create(self, arg):
         """Creates a new instance of BaseModel"""
         if not arg:
@@ -54,7 +53,6 @@ class HBNBCommand(cmd.Cmd):
         new_instance = eval(arg)()
         new_instance.save()
         print(new_instance.id)
-
 
     def do_show(self, arg):
         """Prints the string representation of an instance"""
@@ -76,7 +74,6 @@ class HBNBCommand(cmd.Cmd):
             return
 
         print(all_objs[obj_key])
-
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
@@ -100,7 +97,6 @@ class HBNBCommand(cmd.Cmd):
         del all_objs[obj_key]
         storage.save()
 
-
     def do_all(self, arg):
         """Prints all string representation of all instances"""
         args = arg.split()
@@ -111,7 +107,6 @@ class HBNBCommand(cmd.Cmd):
             return
 
         print([str(all_objs[obj]) for obj in all_objs])
-
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id"""
