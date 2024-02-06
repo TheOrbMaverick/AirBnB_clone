@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-from models.base_model import BaseModel
+from datetime import datetime
+from os import path
 import json
 
 
@@ -30,16 +31,18 @@ class FileStorage:
         for key, obj in self.__objects.items():
             serialized_objects[key] = obj.to_dict()
         with open(self.__file_path, 'w', encoding='utf-8') as file:
-            json.dump(serialized_objects, file)
+            json.dump(serialized_objects, file, ensure_ascii=False)
 
     def reload(self):
-        """Deserializes the JSON file to __objects"""
-        try:
-            with open(self.__file_path, 'r') as file:
-                deserialized_objects = json.load(file)
-                for key, obj_dict in deserialized_objects.items():
+        """Deserializes the JSON file to __objects."""
+        if path.exists(self.__file_path):
+            with open(self.__file_path, 'r', encoding='utf-8') as file:
+                loaded_objects = json.load(file)
+                for key, obj_dict in loaded_objects.items():
                     class_name, obj_id = key.split('.')
-                    obj_dict['__class__'] = class_name
-                    self.__objects[key] = eval(class_name)(**obj_dict)
-        except FileNotFoundError:
-            pass
+                    obj_dict['created_at'] = datetime.strptime(obj_dict['created_at'], "%Y-%m-%dT%H:%M:%S.%f")
+                    obj_dict['updated_at'] = datetime.strptime(obj_dict['updated_at'], "%Y-%m-%dT%H:%M:%S.%f")
+                    module_name = "models." + class_name
+                    obj_class = eval(module_name)
+                    obj_instance = obj_class(**obj_dict)
+                    self.__objects[key] = obj_instance
