@@ -2,11 +2,27 @@
 """file_storage
 This module defines the BaseModel class.
 Classes:
-    - BaseModel: A base model class with common attributes and methods.
+    - FileStorage: A class for storing and retrieving data
 """
+from models.amenity import Amenity
 from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 from models.user import User
 import json
+
+classes = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "Place": Place,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Review": Review
+}
+"""classes (dict): dictionary of class objects"""
 
 
 class FileStorage:
@@ -46,12 +62,12 @@ class FileStorage:
                 deserialized_objects = json.load(file)
                 for key, obj_dict in deserialized_objects.items():
                     class_name = obj_dict['__class__']
-                    if class_name == 'User':
-                        self.__objects[key] = User(**obj_dict)
-                    else:
-                        self.__objects[key] = eval(class_name)(**obj_dict)
+                    self.__objects[key] = classes[class_name](**obj_dict)
         except FileNotFoundError:
             pass
+
+
+# self.__objects[key] = eval(class_name)(**obj_dict)
 
 # Alt:
 #                   class_name, obj_id = key.split('.')
