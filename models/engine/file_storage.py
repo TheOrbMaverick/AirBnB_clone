@@ -22,7 +22,7 @@ classes = {
     "Amenity": Amenity,
     "Review": Review
 }
-"""classes (dict): dictionary of class objects"""
+"""classes: dictionary mapping class names to corresponding class objects"""
 
 
 class FileStorage:
