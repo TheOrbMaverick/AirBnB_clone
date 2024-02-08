@@ -36,9 +36,9 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     classes = ["BaseModel", "User", "Place", "State", "City",
                "Amenity", "Review"]
-    
+
     def default(self, line):
-        """Called on an input line when the command prefix is not recognized."""
+        """Called when input command prefix is not recognized."""
         if '.' in line:
             commands = line.split('.')
             class_name = commands[0]
@@ -46,16 +46,18 @@ class HBNBCommand(cmd.Cmd):
 
             method_name, arg_with_end_bracket = method_with_args.split('(')
 
+            # Check if the class name exists
             if class_name in self.classes:
-                # Check if the class name exists in your list of provided commands
 
                 if len(arg_with_end_bracket) > 1:
-                    arg_with_quotes = arg_with_end_bracket.strip(')')  # Remove the closing parenthesis
-                
-                    if '"' in arg_with_quotes and '"' in arg_with_quotes[::-1]:  # Check if arg starts and ends with quotes
+                    # Remove the closing parenthesis
+                    arg_with_quotes = arg_with_end_bracket.strip(')')
+
+                    # Check if arg starts and ends with quotes
+                    if '"' in arg_with_quotes and '"' in arg_with_quotes[::-1]:
                         argument = arg_with_quotes[1:-1]  # Remove quotes
 
-                    #assign id to argument
+                    # assign id to argument
                     id_arg = argument
                     arg = method_name + " " + class_name + " " + id_arg
 
@@ -63,6 +65,7 @@ class HBNBCommand(cmd.Cmd):
                         print(arg)
                         self.do_destroy(arg)
                         return
+
                     elif method_name == "show":
                         self.do_show(arg)
                         return
