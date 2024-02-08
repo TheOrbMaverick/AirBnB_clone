@@ -36,6 +36,46 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     classes = ["BaseModel", "User", "Place", "State", "City",
                "Amenity", "Review"]
+    
+    def default(self, line):
+        """Called on an input line when the command prefix is not recognized."""
+        if '.' in line:
+            commands = line.split('.')
+            class_name = commands[0]
+            method_with_args = commands[1]
+
+            method_name, arg_with_end_bracket = method_with_args.split('(')
+
+            if class_name in self.classes:
+                # Check if the class name exists in your list of provided commands
+
+                if len(arg_with_end_bracket) > 1:
+                    arg_with_quotes = arg_with_end_bracket.strip(')')  # Remove the closing parenthesis
+                
+                    if '"' in arg_with_quotes and '"' in arg_with_quotes[::-1]:  # Check if arg starts and ends with quotes
+                        argument = arg_with_quotes[1:-1]  # Remove quotes
+
+                    #assign id to argument
+                    id_arg = argument
+                    arg = method_name + " " + class_name + " " + id_arg
+
+                    if method_name == "destroy":
+                        print(arg)
+                        self.do_destroy(arg)
+                        return
+                    elif method_name == "show":
+                        self.do_show(arg)
+                        return
+                else:
+                    if method_name == "create":
+                        self.do_create(class_name)
+                        return
+                    elif method_name == "all":
+                        self.do_all(class_name)
+            else:
+                print("** class does not exist **")
+        else:
+            print("Unknown command:", line)
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -85,6 +125,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
         args = arg.split()
+
         if not args:
             print("** class name missing **")
             return
@@ -97,6 +138,7 @@ class HBNBCommand(cmd.Cmd):
 
         all_objs = storage.all()
         obj_key = "{}.{}".format(args[0], args[1])
+
         if obj_key not in all_objs:
             print("** no instance found **")
             return
