@@ -59,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
 
                     # assign id to argument
                     id_arg = argument
-                    arg = method_name + " " + class_name + " " + id_arg
+                    arg = f"{class_name} {id_arg}"
 
                     if method_name == "destroy":
                         print(arg)
