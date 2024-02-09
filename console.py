@@ -24,12 +24,15 @@ class HBNBCommand(cmd.Cmd):
     - prompt (str): The prompt displayed to the user.
 
     Methods:
-    - do_quit(arg): Exits the program.
-    - do_exit(arg): Alias for the quit command.
-    - do_create(arg): Creates a new instance of BaseModel.
-    - do_show(arg): Prints the string representation of an instance.
-    - do_destroy(arg): Deletes an instance.
     - do_all(arg): Prints all instances.
+    - do_count(arg): counts the instances of a class.
+    - do_create(arg): Creates a new instance of BaseModel.
+    - do_destroy(arg): Deletes an instance.
+    - emptyline: handles empty line as input
+    - do_EOF: implements end of file.
+    - do_exit(arg): Alias for the quit command.
+    - do_quit(arg): Exits the program.
+    - do_show(arg): Prints the string representation of an instance.
     - do_update(arg): Updates an instance.
     """
 
@@ -88,8 +91,10 @@ class HBNBCommand(cmd.Cmd):
                         return
                     elif method_name == "all":
                         self.do_all(class_name)
+                    elif method_name == "count":
+                        self.do_count(class_name)
             else:
-                print("** class does not exist **")
+                print("** class doesn't exist **")
         else:
             print("Unknown command:", line)
 
@@ -104,6 +109,19 @@ class HBNBCommand(cmd.Cmd):
 
     # aliasing the command
     do_exit = do_quit
+
+    def do_count(self, arg):
+        """ Count the instances of a class."""
+        args = arg.split(' ')
+        if not args[0]:
+            print("** class name missing **")
+        elif args[0] not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            matches = [
+                key for key in storage.all() if key.startswith(
+                    args[0] + '.')]
+            print(len(matches))
 
     def emptyline(self):
         """Emptyline method"""
@@ -217,7 +235,7 @@ class HBNBCommand(cmd.Cmd):
         obj.save()
 
 
-# Gracefully handle wrong input
+# Gracefully handle wrong input eg BaseModel.User, user.count
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
