@@ -34,7 +34,64 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
-    classes = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
+    classes = ["BaseModel", "User", "Place", "State", "City",
+               "Amenity", "Review"]
+
+    def default(self, line):
+        """Called when input command prefix is not recognized."""
+        if '.' in line:
+            commands = line.split('.')
+            class_name = commands[0]
+            method_with_args = commands[1]
+
+            method_name, arg_with_end_bracket = method_with_args.split('(')
+
+            # Check if the class name exists
+            if class_name in self.classes:
+
+                if len(arg_with_end_bracket) > 1:
+                    # Remove the closing parenthesis
+                    arg_with_quotes = arg_with_end_bracket.strip(')')
+
+                    if ' ' in arg_with_quotes:
+                        update_array = arg_with_quotes.split(', ')
+
+                        update_args = []
+                        for i in update_array:
+                            split_i = i.strip().strip('"').split('"')
+                            update_args.extend(split_i)
+
+                        if method_name == "update":
+                            print(update_args)
+                            # Call do_update method with update_args
+                            self.do_update(update_args)
+                            return
+
+                    # Check if arg starts and ends with quotes
+                    if '"' in arg_with_quotes and '"' in arg_with_quotes[::-1]:
+                        argument = arg_with_quotes[1:-1]  # Remove quotes
+
+                    # assign id to argument
+                    id_arg = argument
+                    arg = f"{class_name} {id_arg}"
+
+                    if method_name == "destroy":
+                        self.do_destroy(arg)
+                        return
+
+                    elif method_name == "show":
+                        self.do_show(arg)
+                        return
+                else:
+                    if method_name == "create":
+                        self.do_create(class_name)
+                        return
+                    elif method_name == "all":
+                        self.do_all(class_name)
+            else:
+                print("** class does not exist **")
+        else:
+            print("Unknown command:", line)
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -84,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
         args = arg.split()
+
         if not args:
             print("** class name missing **")
             return
@@ -96,6 +154,7 @@ class HBNBCommand(cmd.Cmd):
 
         all_objs = storage.all()
         obj_key = "{}.{}".format(args[0], args[1])
+
         if obj_key not in all_objs:
             print("** no instance found **")
             return
