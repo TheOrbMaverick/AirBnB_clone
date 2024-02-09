@@ -53,6 +53,20 @@ class HBNBCommand(cmd.Cmd):
                     # Remove the closing parenthesis
                     arg_with_quotes = arg_with_end_bracket.strip(')')
 
+                    if ' ' in arg_with_quotes:
+                        update_array = arg_with_quotes.split(', ')
+
+                        update_args = []
+                        for i in update_array:
+                            split_i = i.strip().strip('"').split('"')
+                            update_args.extend(split_i)
+
+                        if method_name == "update":
+                            print(update_args)
+                            # Call do_update method with update_args
+                            self.do_update(update_args)
+                            return
+
                     # Check if arg starts and ends with quotes
                     if '"' in arg_with_quotes and '"' in arg_with_quotes[::-1]:
                         argument = arg_with_quotes[1:-1]  # Remove quotes
@@ -62,7 +76,6 @@ class HBNBCommand(cmd.Cmd):
                     arg = f"{class_name} {id_arg}"
 
                     if method_name == "destroy":
-                        print(arg)
                         self.do_destroy(arg)
                         return
 
