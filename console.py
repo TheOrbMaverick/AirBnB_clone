@@ -97,6 +97,11 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program"""
         return True
 
+    def do_EOF(self, line):
+        """Implements EOF input."""
+        print()
+        return True
+
     # aliasing the command
     do_exit = do_quit
 
@@ -163,7 +168,14 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all instances"""
+        """
+        Prints all string representation of all instances.
+        Can filter with optional class name.
+
+        Usage:
+            (hbnb) all <optional class_name>
+            (hbnb) <optional class_name>.all()
+        """
         args = arg.split()
         all_objs = storage.all()
 
@@ -171,7 +183,9 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        print([str(all_objs[obj]) for obj in all_objs])
+        instances = [str(all_objs[obj]) for obj in all_objs
+                     if not args or obj.startswith(args[0] + ".")]
+        print(instances)
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id"""
@@ -202,6 +216,8 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, args[2], args[3])
         obj.save()
 
+
+# Gracefully handle wrong input
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
