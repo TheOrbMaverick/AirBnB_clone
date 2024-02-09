@@ -65,9 +65,10 @@ class HBNBCommand(cmd.Cmd):
                             update_args.extend(split_i)
 
                         if method_name == "update":
-                            print(update_args)
+                            # print(update_args)
+                            update_str = ' '.join([class_name] + update_args)
                             # Call do_update method with update_args
-                            self.do_update(update_args)
+                            self.do_update(update_str)
                             return
 
                     # Check if arg starts and ends with quotes
