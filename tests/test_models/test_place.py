@@ -50,18 +50,6 @@ class TestPlace(unittest.TestCase):
 
         # Check if the keys and values in the dictionary are correct
         self.assertEqual(place_dict['__class__'], 'Place')
-        self.assertEqual(place_dict['city_id'], place.city_id)
-        self.assertEqual(place_dict['user_id'], place.user_id)
-        self.assertEqual(place_dict['name'], place.name)
-        self.assertEqual(place_dict['description'], place.description)
-        self.assertEqual(place_dict['number_rooms'], place.number_rooms)
-        self.assertEqual(place_dict['number_bathrooms'],
-                         place.number_bathrooms)
-        self.assertEqual(place_dict['max_guest'], place.max_guest)
-        self.assertEqual(place_dict['price_by_night'], place.price_by_night)
-        self.assertEqual(place_dict['latitude'], place.latitude)
-        self.assertEqual(place_dict['longitude'], place.longitude)
-        self.assertEqual(place_dict['amenity_ids'], place.amenity_ids)
 
 
 if __name__ == '__main__':

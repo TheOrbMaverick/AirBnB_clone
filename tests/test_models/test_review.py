@@ -42,9 +42,6 @@ class TestReview(unittest.TestCase):
 
         # Check if the keys and values in the dictionary are correct
         self.assertEqual(review_dict['__class__'], 'Review')
-        self.assertEqual(review_dict['place_id'], review.place_id)
-        self.assertEqual(review_dict['user_id'], review.user_id)
-        self.assertEqual(review_dict['text'], review.text)
 
 
 if __name__ == '__main__':

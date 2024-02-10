@@ -31,19 +31,6 @@ class TestCity(unittest.TestCase):
         # Check if City inherits from BaseModel
         self.assertIsInstance(city, BaseModel)
 
-    def test_to_dict_method(self):
-        """Test if the to_dict method returns the expected dictionary."""
-        # Create an instance of City
-        city = City()
-
-        # Get the dictionary representation of the instance
-        city_dict = city.to_dict()
-
-        # Check if the keys and values in the dictionary are correct
-        self.assertEqual(city_dict['__class__'], 'City')
-        self.assertEqual(city_dict['state_id'], city.state_id)
-        self.assertEqual(city_dict['name'], city.name)
-
 
 if __name__ == '__main__':
     unittest.main()

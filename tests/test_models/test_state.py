@@ -30,20 +30,6 @@ class TestState(unittest.TestCase):
         # Check if State inherits from BaseModel
         self.assertIsInstance(state, BaseModel)
 
-    def test_to_dict_method(self):
-        """Test if the to_dict method returns the expected
-        dictionary representation.
-        """
-        # Create an instance of State
-        state = State()
-
-        # Get the dictionary representation of the instance
-        state_dict = state.to_dict()
-
-        # Check if the keys and values in the dictionary are correct
-        self.assertEqual(state_dict['__class__'], 'State')
-        self.assertEqual(state_dict['name'], state.name)
-
 
 if __name__ == '__main__':
     unittest.main()

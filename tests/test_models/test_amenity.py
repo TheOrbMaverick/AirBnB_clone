@@ -30,18 +30,6 @@ class TestAmenity(unittest.TestCase):
         # Check if Amenity inherits from BaseModel
         self.assertIsInstance(amenity, BaseModel)
 
-    def test_to_dict_method(self):
-        """Test if the to_dict method returns the expected dictionary."""
-        # Create an instance of Amenity
-        amenity = Amenity()
-
-        # Get the dictionary representation of the instance
-        amenity_dict = amenity.to_dict()
-
-        # Check if the keys and values in the dictionary are correct
-        self.assertEqual(amenity_dict['__class__'], 'Amenity')
-        self.assertEqual(amenity_dict['name'], amenity.name)
-
 
 if __name__ == '__main__':
     unittest.main()

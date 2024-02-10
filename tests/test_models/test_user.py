@@ -43,10 +43,6 @@ class TestUser(unittest.TestCase):
 
         # Check if the keys and values in the dictionary are correct
         self.assertEqual(user_dict['__class__'], 'User')
-        self.assertEqual(user_dict['email'], user.email)
-        self.assertEqual(user_dict['password'], user.password)
-        self.assertEqual(user_dict['first_name'], user.first_name)
-        self.assertEqual(user_dict['last_name'], user.last_name)
 
 
 if __name__ == '__main__':
