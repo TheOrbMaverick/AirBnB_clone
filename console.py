@@ -6,7 +6,6 @@ Importing the cmd and other necessary modules
 """
 import cmd
 import re
-import json
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
