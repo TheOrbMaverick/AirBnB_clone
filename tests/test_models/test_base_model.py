@@ -1,16 +1,26 @@
+#!/usr/bin/python3
+
+"""
+Testing expected Output from classes.
+"""
 import unittest
 from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
+    """Testing the BaseModel class."""
 
     def test_id(self):
+        """Test to show that the id us created"""
+
         # Create an instance of BaseModel
         base_model = BaseModel()
         # Check if the id attribute is not None
         self.assertIsNotNone(base_model.id)
 
     def test_str_method(self):
+        """Test for expected string output."""
+
         # Create an instance of BaseModel
         base_model = BaseModel()
         # Check if __str__ method returns the expected string representation
@@ -18,6 +28,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(str(base_model), expected_str)
 
     def test_to_dict_method(self):
+        """Test for expected dictionary output."""
+
         # Create an instance of BaseModel
         base_model = BaseModel()
         # Get the dictionary representation of the instance
