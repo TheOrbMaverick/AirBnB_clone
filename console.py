@@ -26,6 +26,7 @@ class HBNBCommand(cmd.Cmd):
     - prompt (str): The prompt displayed to the user.
 
     Methods:
+    - dict_update(...): updates with dictionary
     - do_all(arg): Prints all instances.
     - do_count(arg): counts the instances of a class.
     - do_create(arg): Creates a new instance of BaseModel.
