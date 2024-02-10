@@ -1,6 +1,7 @@
 import unittest
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
 
     def test_id(self):
@@ -22,10 +23,15 @@ class TestBaseModel(unittest.TestCase):
         # Get the dictionary representation of the instance
         model_dict = base_model.to_dict()
         # Check if the keys and values in the dictionary are correct
-        self.assertEqual(model_dict['__class__'], 'BaseModel')
-        self.assertEqual(model_dict['id'], base_model.id)
-        self.assertEqual(model_dict['created_at'], base_model.created_at.isoformat())
-        self.assertEqual(model_dict['updated_at'], base_model.updated_at.isoformat())
+        self.assertEqual(model_dict['__class__'],
+                         'BaseModel')
+        self.assertEqual(model_dict['id'],
+                         base_model.id)
+        self.assertEqual(model_dict['created_at'],
+                         base_model.created_at.isoformat())
+        self.assertEqual(model_dict['updated_at'],
+                         base_model.updated_at.isoformat())
+
 
 if __name__ == '__main__':
     unittest.main()
