@@ -5,6 +5,8 @@ Console that runs commands for the airbnb project.
 Importing the cmd and other necessary modules
 """
 import cmd
+import re
+import json
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -56,18 +58,25 @@ class HBNBCommand(cmd.Cmd):
                     # Remove the closing parenthesis
                     arg_with_quotes = arg_with_end_bracket.strip(')')
 
+                    print(f"arg q is {arg_with_quotes}")
+                    pattern = r"\{[^{}]*\}"
+                    matches = re.findall(pattern, arg_with_quotes)
+                    if matches and method_name == "update":
+                        id_dict = arg_with_quotes.split(',', 1)[0].strip('"')
+                        attr_dict = eval(matches[0])
+                        # Call dict_update with dictionary
+                        self.dict_update(class_name, id_dict, attr_dict)
+                        return
                     if ' ' in arg_with_quotes:
                         update_array = arg_with_quotes.split(', ')
-
                         update_args = []
                         for i in update_array:
                             split_i = i.strip().strip('"').split('"')
                             update_args.extend(split_i)
 
                         if method_name == "update":
-                            # print(update_args)
                             update_str = ' '.join([class_name] + update_args)
-                            # Call do_update method with update_args
+                            # Call do_update method with update_str
                             self.do_update(update_str)
                             return
 
@@ -98,6 +107,18 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("Unknown command:", line)
+
+    def dict_update(self, class_name, id_dict, attribute_dict):
+        """Updates an instance with a dictionary of attributes"""
+        all_objs = storage.all()
+        obj_key = "{}.{}".format(class_name, id_dict)
+        if obj_key not in all_objs:
+            print("** no instance found **")
+            return
+        obj = all_objs[obj_key]
+        for attribute, value in attribute_dict.items():
+            setattr(obj, attribute, value)
+        obj.save()
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
