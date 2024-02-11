@@ -11,9 +11,12 @@ The command interpreter is a Python-based CLI tool that provides a command-line 
 
 - Navigate to the directory containing the project files.
 
-- Run the console.py file with: ./console.py
+- Run the console.py file with: "./console.py"
 
 - Type "help" in the console for documentation.
 
 ### Available Commands
 The command interpreter supports the following commands:
+
+- "help": Display a list of available commands or provide help for a specific command.
+- "create": Create a new instance of a specified class.
