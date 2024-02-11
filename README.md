@@ -14,3 +14,6 @@ The command interpreter is a Python-based CLI tool that provides a command-line 
 - Run the console.py file with: ./console.py
 
 - Type "help" in the console for documentation.
+
+### Available Commands
+The command interpreter supports the following commands:
