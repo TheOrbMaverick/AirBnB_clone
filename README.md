@@ -24,3 +24,4 @@ The command interpreter supports the following commands:
 - "destroy": Delete a specified instance.
 - "all": Display all instances or all instances of a specified class.
 - "update": Update attributes of a specified instance.
+- "quit" or "EOF": Exit the console.
