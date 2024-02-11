@@ -183,31 +183,173 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_do_destroy(self):
         """Test destroy command."""
+        for classname in self.classes:
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd("create {}".format(classname))
+            uid = f.getvalue()[:-1]
+            self.assertTrue(len(uid) > 0)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd("destroy {} {}".format(classname, uid))
+            s = f.getvalue()[:-1]
+            self.assertTrue(len(s) == 0)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd(".all()")
+            self.assertFalse(uid in f.getvalue())
+
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd("create {}".format(classname))
+            uid = f.getvalue()[:-1]
+            self.assertTrue(len(uid) > 0)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd('{}.destroy("{}")'.format(classname, uid))
+            s = f.getvalue()[:-1]
+            self.assertTrue(len(s) == 0)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd(".all()")
+            self.assertFalse(uid in f.getvalue())
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd("destroy")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class name missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd("destroy garbage")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class doesn't exist **")
         with patch('sys.stdout', new=StringIO()) as f:
             self.cmd.onecmd("destroy BaseModel")
-            self.assertEqual(f.getvalue().strip(),
-                             "** instance id missing **")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** instance id missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd("destroy BaseModel 6524359")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** no instance found **")
 
-    # def test_do_all(self):
-    #     """Test all command."""
-    #     with patch('sys.stdout', new=StringIO()) as f:
-    #         self.cmd.onecmd("all")
-    #         self.assertEqual(f.getvalue().strip(),
-    #                          "** class name missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd(".destroy()")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class name missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd("garbage.destroy()")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class doesn't exist **")
+        # with patch('sys.stdout', new=StringIO()) as f:
+        #     self.cmd.onecmd("BaseModel.destroy()")
+        # msg = f.getvalue()[:-1]
+        # self.assertEqual(msg, "** instance id missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd('BaseModel.destroy("6524359")')
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** no instance found **")
+
+    def test_do_all(self):
+        """Test all command."""
+        for classname in self.classes:
+            uid = self.create_class(classname)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd("all")
+            s = f.getvalue()[:-1]
+            self.assertTrue(len(s) > 0)
+            self.assertIn(uid, s)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd("all {}".format(classname))
+            s = f.getvalue()[:-1]
+            self.assertTrue(len(s) > 0)
+            self.assertIn(uid, s)
+
+            # tests the .all() command
+            uid = self.create_class(classname)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd("{}.all()".format(classname))
+            s = f.getvalue()[:-1]
+            self.assertTrue(len(s) > 0)
+            self.assertIn(uid, s)
+
+        # Tests errors
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd("all garbage")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class doesn't exist **")
+
+        # Tests all() command errors
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd("garbage.all()")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class doesn't exist **")
 
     def test_do_update(self):
         """Test update command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("update")
-            self.assertEqual(f.getvalue().strip(),
-                             "** class name missing **")
+        for classname in self.classes:
+            attr = "foostr"
+            val = "fooval"
+            uid = self.create_class(classname)
+            cmd = '{}.update("{}", "{}", "{}")'
+            #  cmd = 'update {} {} {} {}'
+            cmd = cmd.format(classname, uid, attr, val)
+            #  print("CMD::", cmd)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd(cmd)
+            s = f.getvalue()
+            self.assertEqual(len(s), 0)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd('{}.show("{}")'.format(classname, uid))
+            s = f.getvalue()
+            self.assertIn(attr, s)
+            self.assertIn(val, s)
 
-    def test_count_command(self):
+        # def test_update_everything(self):
+        # """Tests update command with errthang, like a baws."""
+        # for classname, cls in self.classes().items():
+        #     uid = self.create_class(classname)
+        #     for attr, value in self.test_random_attributes.items():
+        #         if type(value) is not str:
+        #             pass
+        #         quotes = (type(value) == str)
+        #         self.help_test_update(classname, uid, attr,
+        #                               value, quotes, False)
+        #         self.help_test_update(classname, uid, attr,
+        #                               value, quotes, True)
+        #     pass
+        #     if classname == "BaseModel":
+        #         continue
+        #     for attr, attr_type in self.attributes()[classname].items():
+        #         if attr_type not in (str, int, float):
+        #             continue
+        #         self.help_test_update(classname, uid, attr,
+        #                               self.attribute_values[attr_type],
+        #                               True, False)
+        #         self.help_test_update(classname, uid, attr,
+        #                               self.attribute_values[attr_type],
+        #                               False, True)
+
+    def test_do_count(self):
         """Test count command."""
+        for classname in self.classes:
+            for i in range(20):
+                uid = self.create_class(classname)
+            with patch('sys.stdout', new=StringIO()) as f:
+                self.cmd.onecmd("{}.count()".format(classname))
+            s = f.getvalue()[:-1]
+            self.assertTrue(len(s) > 0)
+            self.assertEqual(s, "20")
+
+        # Tests .count() command with errors."""
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("count")
-            self.assertEqual(f.getvalue().strip(),
-                             "** class name missing **")
+            self.cmd.onecmd("garbage.count()")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class doesn't exist **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd(".count()")
+        msg = f.getvalue()[:-1]
+        self.assertEqual(msg, "** class name missing **")
+
+    def create_class(self, classname):
+        """Creates a class for console tests."""
+        with patch('sys.stdout', new=StringIO()) as f:
+            self.cmd.onecmd("create {}".format(classname))
+        uid = f.getvalue()[:-1]
+        self.assertTrue(len(uid) > 0)
+        return uid
 
 
 if __name__ == '__main__':
