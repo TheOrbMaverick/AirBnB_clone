@@ -5,14 +5,28 @@ Testing expected Output from classes.
 """
 import unittest
 from models.base_model import BaseModel
+from models import storage
+import os
 
 
 class TestBaseModel(unittest.TestCase):
     """Testing the BaseModel class."""
 
-    def test_id(self):
-        """Test to show that the id us created"""
+    def setUp(self):
+        """Sets up test cases."""
+        self.tearDown()
+        storage._FileStorage__objects = {}
+        # Check if the id attribute is not None
 
+    def tearDown(self):
+        """Resets FileStorage data."""
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+
+    def test_id(self):
+        """Test to show that the id is created"""
         # Create an instance of BaseModel
         base_model = BaseModel()
         # Check if the id attribute is not None
