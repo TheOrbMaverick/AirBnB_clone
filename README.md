@@ -22,3 +22,5 @@ The command interpreter supports the following commands:
 - "create": Create a new instance of a specified class.
 - "show": Display details of a specific instance.
 - "destroy": Delete a specified instance.
+- "all": Display all instances or all instances of a specified class.
+- "update": Update attributes of a specified instance.
