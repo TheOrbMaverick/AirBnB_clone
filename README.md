@@ -25,3 +25,6 @@ The command interpreter supports the following commands:
 - "all": Display all instances or all instances of a specified class.
 - "update": Update attributes of a specified instance.
 - "quit" or "EOF": Exit the console.
+
+### Supported Classes
+The command interpreter supports CRUD operations on the following classes:
