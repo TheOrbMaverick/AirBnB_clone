@@ -36,5 +36,6 @@ The command interpreter supports CRUD operations on the following classes:
 - "City", "State", "Amenity": Additional classes representing geographical and other data related to places.
 
 ### Testing
-The project includes unit tests to ensure the correctness of the implemented functionality. To run the tests, execute the following command:
+The project includes unit tests to ensure the correctness of the implemented functionality. To run the tests, execute the following commands:
 - "python3 -m unittest discover tests"
+- "echo 'python3 -m unittest discover tests' | bash" (In non-interactive mode)
