@@ -28,3 +28,6 @@ The command interpreter supports the following commands:
 
 ### Supported Classes
 The command interpreter supports CRUD operations on the following classes:
+
+- "BaseModel": The base class for all other classes. Provides basic functionality such as serialization and deserialization.
+- "User": Represents a user of the application.
