@@ -19,7 +19,6 @@ class TestFileStorage(unittest.TestCase):
         """Set up a FileStorage instance for each test."""
         self.storage = FileStorage()
         self.tearDown()
-        self.storage._FileStorage__objects.clear()
         self.classes = ["BaseModel", "User", "Place", "State",
                         "City", "Amenity", "Review"]
 
@@ -41,7 +40,7 @@ class TestFileStorage(unittest.TestCase):
         msg = "descriptor '__init__' of 'object' object needs an argument"
         self.assertEqual(str(e.exception), msg)
 
-        # too many args
+        # excess args
         with self.assertRaises(TypeError) as e:
             b = FileStorage(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
         msg = "FileStorage() takes no arguments"
@@ -96,7 +95,7 @@ class TestFileStorage(unittest.TestCase):
 
         # excess args
         with self.assertRaises(TypeError) as e:
-            FileStorage.all(self, 98)
+            FileStorage.all(self, 0)
         msg = "all() takes 1 positional argument but 2 were given"
         self.assertEqual(str(e.exception), msg)
 
@@ -167,7 +166,7 @@ class TestFileStorage(unittest.TestCase):
         # excess args
         self.tearDown()
         with self.assertRaises(TypeError) as e:
-            FileStorage.reload(self, 98)
+            FileStorage.reload(self, 0)
         msg = "reload() takes 1 positional argument but 2 were given"
         self.assertEqual(str(e.exception), msg)
 
