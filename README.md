@@ -37,4 +37,4 @@ The command interpreter supports CRUD operations on the following classes:
 
 ### Testing
 The project includes unit tests to ensure the correctness of the implemented functionality. To run the tests, execute the following command:
-"python3 -m unittest discover tests"
+- "python3 -m unittest discover tests"
