@@ -31,3 +31,5 @@ The command interpreter supports CRUD operations on the following classes:
 
 - "BaseModel": The base class for all other classes. Provides basic functionality such as serialization and deserialization.
 - "User": Represents a user of the application.
+- "Place": Represents a lodging place available for booking.
+- "Review": Represents a review written by a user for a place.
