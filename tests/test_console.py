@@ -166,7 +166,7 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertEqual(f.getvalue()[:-1], "** no instance found **")
 
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd('BaseModel.show("123456524359")')
+            self.cmd.onecmd('BaseModel.show("12345479053237890")')
         self.assertEqual(f.getvalue()[:-1], "** no instance found **")
 
     # def test_do_show_x(self, classname):
@@ -213,7 +213,7 @@ class TestHBNBCommand(unittest.TestCase):
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** class name missing **")
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("destroy garbage")
+            self.cmd.onecmd("destroy syio6tfk")
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** class doesn't exist **")
         with patch('sys.stdout', new=StringIO()) as f:
@@ -221,7 +221,7 @@ class TestHBNBCommand(unittest.TestCase):
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** instance id missing **")
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("destroy BaseModel 6524359")
+            self.cmd.onecmd("destroy BaseModel 479053237890")
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** no instance found **")
 
@@ -230,7 +230,7 @@ class TestHBNBCommand(unittest.TestCase):
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** class name missing **")
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("garbage.destroy()")
+            self.cmd.onecmd("syio6tfk.destroy()")
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** class doesn't exist **")
         # with patch('sys.stdout', new=StringIO()) as f:
@@ -238,7 +238,7 @@ class TestHBNBCommand(unittest.TestCase):
         # msg = f.getvalue()[:-1]
         # self.assertEqual(msg, "** instance id missing **")
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd('BaseModel.destroy("6524359")')
+            self.cmd.onecmd('BaseModel.destroy("479053237890")')
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** no instance found **")
 
@@ -267,13 +267,13 @@ class TestHBNBCommand(unittest.TestCase):
 
         # Tests errors
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("all garbage")
+            self.cmd.onecmd("all syio6tfk")
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** class doesn't exist **")
 
         # Tests all() command errors
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("garbage.all()")
+            self.cmd.onecmd("syio6tfk.all()")
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** class doesn't exist **")
 
@@ -283,10 +283,8 @@ class TestHBNBCommand(unittest.TestCase):
             attr = "foostr"
             val = "fooval"
             uid = self.create_class(classname)
-            cmd = '{}.update("{}", "{}", "{}")'
-            #  cmd = 'update {} {} {} {}'
-            cmd = cmd.format(classname, uid, attr, val)
-            #  print("CMD::", cmd)
+            cmd = f'{classname}.update("{uid}", "{attr}", "{val}")'
+
             with patch('sys.stdout', new=StringIO()) as f:
                 self.cmd.onecmd(cmd)
             s = f.getvalue()
@@ -296,31 +294,6 @@ class TestHBNBCommand(unittest.TestCase):
             s = f.getvalue()
             self.assertIn(attr, s)
             self.assertIn(val, s)
-
-        # def test_update_everything(self):
-        # """Tests update command with errthang, like a baws."""
-        # for classname, cls in self.classes().items():
-        #     uid = self.create_class(classname)
-        #     for attr, value in self.test_random_attributes.items():
-        #         if type(value) is not str:
-        #             pass
-        #         quotes = (type(value) == str)
-        #         self.help_test_update(classname, uid, attr,
-        #                               value, quotes, False)
-        #         self.help_test_update(classname, uid, attr,
-        #                               value, quotes, True)
-        #     pass
-        #     if classname == "BaseModel":
-        #         continue
-        #     for attr, attr_type in self.attributes()[classname].items():
-        #         if attr_type not in (str, int, float):
-        #             continue
-        #         self.help_test_update(classname, uid, attr,
-        #                               self.attribute_values[attr_type],
-        #                               True, False)
-        #         self.help_test_update(classname, uid, attr,
-        #                               self.attribute_values[attr_type],
-        #                               False, True)
 
     def test_do_count(self):
         """Test count command."""
@@ -335,7 +308,7 @@ class TestHBNBCommand(unittest.TestCase):
 
         # Tests .count() command with errors."""
         with patch('sys.stdout', new=StringIO()) as f:
-            self.cmd.onecmd("garbage.count()")
+            self.cmd.onecmd("syio6tfk.count()")
         msg = f.getvalue()[:-1]
         self.assertEqual(msg, "** class doesn't exist **")
         with patch('sys.stdout', new=StringIO()) as f:
