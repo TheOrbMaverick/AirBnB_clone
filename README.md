@@ -33,3 +33,4 @@ The command interpreter supports CRUD operations on the following classes:
 - "User": Represents a user of the application.
 - "Place": Represents a lodging place available for booking.
 - "Review": Represents a review written by a user for a place.
+- "City", "State", "Amenity": Additional classes representing geographical and other data related to places.
