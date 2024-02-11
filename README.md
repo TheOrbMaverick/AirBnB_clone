@@ -20,3 +20,5 @@ The command interpreter supports the following commands:
 
 - "help": Display a list of available commands or provide help for a specific command.
 - "create": Create a new instance of a specified class.
+- "show": Display details of a specific instance.
+- "destroy": Delete a specified instance.
