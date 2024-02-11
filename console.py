@@ -57,8 +57,6 @@ class HBNBCommand(cmd.Cmd):
                 if len(arg_with_end_bracket) > 1:
                     # Remove the closing parenthesis
                     arg_with_quotes = arg_with_end_bracket.strip(')')
-
-                    print(f"arg q is {arg_with_quotes}")
                     pattern = r"\{[^{}]*\}"
                     matches = re.findall(pattern, arg_with_quotes)
                     if matches and method_name == "update":
@@ -103,6 +101,8 @@ class HBNBCommand(cmd.Cmd):
                         self.do_all(class_name)
                     elif method_name == "count":
                         self.do_count(class_name)
+            elif not class_name:
+                print("** class name missing **")
             else:
                 print("** class doesn't exist **")
         else:
