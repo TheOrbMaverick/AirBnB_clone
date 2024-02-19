@@ -6,6 +6,12 @@
     font-size: 30px;
 }
 
+.places div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .places article {
     width: 390px;
     padding: 20px;
@@ -52,4 +58,8 @@
 
 .max_guest img, .number_rooms img, .number_bathrooms img {
     margin-right: 5px;
+}
+
+body {
+    background-color: gray;
 }
