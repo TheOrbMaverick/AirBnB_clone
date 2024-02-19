@@ -1,17 +1,16 @@
 footer {
-    background-color: #484848;
+    background-color: white;
     height: 60px;
     width: 100%;
     border-top: 1px solid #CCCCCC;
     position: fixed;
     bottom: 0;
-    text-align: center;
-    display: flex;
-    align-items: center;
+    display: grid;
+    place-items: center;
 }
 
 footer h2 {
     margin: 0;
     padding: 0;
-    color: white;
+    color: #484848;
 }
