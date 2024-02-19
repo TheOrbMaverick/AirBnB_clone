@@ -12,46 +12,30 @@
 .locations, .amenities {
     height: 100%;
     width: 25%;
-    position: relative;
+    color: #484848;
+    margin-left: 30px;
+    position: relative; /* Add relative positioning */
 }
 
 .locations {
     border-right: 1px solid #DDDDDD;
 }
 
+h2 {
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
 .locations h3, .amenities h3 {
     font-weight: 600;
+    margin-bottom: 0;
 }
 
-.locations h2 {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.amenities h4 {
+.locations h4, .amenities h4 {
     font-weight: 400;
     font-size: 14px;
-}
-
-.popover {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1;
-    display: none;
-    background-color: #FAFAFA;
-    border: 1px solid #DDDDDD;
-    border-radius: 4px;
-    padding: 5px 0;
-}
-
-.locations:hover .popover, .amenities:hover .popover {
-    display: block;
-}
-
-.popover ul {
-    list-style-type: none;
-    padding: 0;
+    margin: 0;
 }
 
 .search-button {
@@ -62,10 +46,41 @@
     width: 20%;
     border: none;
     border-radius: 4px;
+    margin-left: auto;
     margin-right: 30px;
     transition: opacity 0.3s ease;
 }
 
 .search-button:hover {
     opacity: 0.9;
+}
+
+.popover {
+    top: 100%;
+    left: 0;
+    background-color: #DDDDDD;
+    border: 1px solid #FAFAFA;
+    border-radius: 4px;
+    margin-left: -30px;
+    width: 95%;
+    padding-bottom: 24px;
+    margin-top: 12px;
+    /* display: none; */
+}
+
+.popover li li {
+    margin-left: -16px;
+}
+
+.popover li {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.locations:hover .popover, .amenities:hover .popover {
+    display: block;
+}
+
+body {
+    background-color: black;
 }
