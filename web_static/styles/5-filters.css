@@ -12,6 +12,8 @@
 .locations, .amenities {
     height: 100%;
     width: 25%;
+    color: #484848;
+    margin-left: 10px;
 }
 
 .locations {
