@@ -65,7 +65,7 @@ h2 {
     width: 95%;
     padding-bottom: 24px;
     margin-top: 12px;
-    /* display: none; */
+    display: none;
 }
 
 .popover li li {
@@ -79,8 +79,4 @@ h2 {
 
 .locations:hover .popover, .amenities:hover .popover {
     display: block;
-}
-
-body {
-    background-color: black;
 }
