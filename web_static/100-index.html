@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header, Footer, Filters, and Places</title>
+    <link rel="stylesheet" href="styles/4-common.css">
+    <link rel="stylesheet" href="styles/3-header.css">
+    <link rel="stylesheet" href="styles/3-footer.css">
+    <link rel="stylesheet" href="styles/6-filters.css">
+    <link rel="stylesheet" href="styles/8-places.css">
+    <link rel="stylesheet" href="styles/100-places.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span class="logo-text">Your Logo</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="filters">
+            <div class="locations">
+                <h3>States</h3>
+                <ul class="popover">
+                    <li>
+                        <h2>State 1</h2>
+                        <ul>
+                            <li>City 1</li>
+                            <li>City 2</li>
+                            <li>City 3</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h2>State 2</h2>
+                        <ul>
+                            <li>City 1</li>
+                            <li>City 2</li>
+                            <li>City 3</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="amenities">
+                <h3>Amenities</h3>
+                <ul class="popover">
+                    <li>Pet Friendly</li>
+                    <li>TV</li>
+                    <li>WiFi</li>
+                    <!-- Add more amenities as needed -->
+                </ul>
+            </div>
+            <button class="search-button">Search</button>
+        </section>
+        <section class="places">
+            <h1>Places</h1>
+            <div>
+                <article>
+                    <div class="check">
+                        <h2>My home</h2>
+                        <div class="price_by_night">$80</div>
+                    </div>
+                    <div class="information">
+                        <div class="max_guest">
+                            <img src="images/icon_group.png" alt="Guests">
+                            <div>2 Guests</div>
+                        </div>
+                        <div class="number_rooms">
+                            <img src="images/icon_bed.png" alt="Rooms">
+                            <p>1 Bedroom</p>
+                        </div>
+                        <div class="number_bathrooms">
+                            <img src="images/icon_bath.png" alt="Bathrooms">
+                            <p>1 Bathroom</p>
+                        </div>
+                    </div>
+                    <div class="user">
+                        <strong>Owner: </strong> John Lennon
+                    </div>
+                    <div class="description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac lorem eu tellus finibus mattis.
+                    </div>
+                    <div class="amenities">
+                        <strong>Amenities</strong>
+                        <ul>
+                            <li>Pet Friendly</li>
+                            <li>TV</li>
+                            <li>WiFi</li>
+                            <!-- Add more amenities as needed -->
+                        </ul>
+                    </div>
+                    <div class="reviews">
+                        <h2>Reviews</h2>
+                        <ul>
+                            <li>
+                                <h3>From Bob Dylan the 27th January 2017</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </li>
+                            <!-- Add more reviews as needed -->
+                        </ul>
+                    </div>
+                </article>
+                <!-- Add more articles as needed -->
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <h2>Best School</h2>
+    </footer>
+</body>
+</html>
