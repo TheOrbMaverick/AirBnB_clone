@@ -39,9 +39,17 @@
     height: 60px;
     top: 20px;
     right: 20px;
+    margin-left: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.user {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: -250px;
+    /* border: 1px red solid; */
 }
 
 .information {
